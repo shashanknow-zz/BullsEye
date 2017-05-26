@@ -1,0 +1,167 @@
+insert into login values('1000','ajayhegde','root');
+insert into login values('1001','shashank','root');
+insert into login values('1002','admin','root');
+
+
+insert into league values(1,'SOUTHHALL FC',9,1,0,34,14,27);
+insert into league values(2,'DORTMUND FC',8,1,1,32,15,25);
+insert into league values(3,'JUVENTUS',8,2,0,31,16,24);
+insert into league values(4,'LA GALAXY',7,2,1,29,16,22);
+insert into league values(5,'LIVERPOOL FC',6,2,2,27,18,20);
+insert into league values(6,'CRYSTAL PALACE',5,2,3,25,17,18);
+insert into league values(7,'BLACKBURN FC',5,3,2,24,19,17);
+insert into league values(8,'WELLINGTON FC',4,2,4,22,18,16);
+insert into league values(9,'GONZAGA UNITED',3,6,1,20,22,10);
+insert into league values(10,'COMPTON UNITED',2,6,2,18,24,8);
+
+
+insert into stadium values('SOUTHHALL FC','TRAFALGAR PARK',68000,'LONDON');
+insert into stadium values('DORTMUND FC','HANS ARENA',72000,'BERLIN');
+insert into stadium values('JUVENTUS','EZIO ARENA',70000,'MILAN');
+insert into stadium values('LA GALAXY','STAPLES CENTRE',65000,'LOS ANGELES');
+insert into stadium values('LIVERPOOL FC','STEINSGATE',66000,'LIVERPOOL');
+insert into stadium values('CRYSTAL PALACE','SELHIRST PARK',62000,'NORWOOD');
+insert into stadium values('BLACKBURN FC','KENGSTON',58000,'BLACK FREURS');
+insert into stadium values('WELLINGTON FC','REDMUND PARK',55000,'NEW HAMPSHIRE');
+insert into stadium values('GONZAGA UNITED','CASTLE ARENA',52000,'SPOKANE');
+insert into stadium values('COMPTON UNITED','MADISON PARK',48000,'COMPTON');
+
+insert into manager values('1000','EDWARD','AMERICA','SOUTHHALL FC');
+insert into manager values('1001','ROBERTSON','ENGLAND','DORTMUND FC');
+insert into manager values('1002','MOURINHO','SPAIN','JUVENTUS');
+insert into manager values('1003','FERGUSAN','SCOTLAND','LA GALAXY');
+insert into manager values('1004','RIVERS','ITALY','LIVERPOOL FC');
+insert into manager values('1005','KERR','FRANCE','CRYSTAL PALACE');
+insert into manager values('1006','KLOPP','GERMANY','BLACKBURN FC');
+insert into manager values('1007','RASHID','DUBAI','WELLINGTON FC');
+insert into manager values('1008','GOLOVKIN','TURKEY','GONZAGA UNITED');
+insert into manager values('1009','MCGREGOR','IRELAND','COMPTON UNITED');
+
+
+insert into clubs values('1000','SOUTHHALL FC','LONDON','TRAFALGAR PARK',1);
+insert into clubs values('1001','DORTMUND FC','BERLIN','HANS ARENA',2);
+insert into clubs values('1002','JUVENTUS','MILAN','EZIO ARENA',3);
+insert into clubs values('1003','LA GALAXY','LOS ANGELES','STAPLES CENTRE',4);
+insert into clubs values('1004','LIVERPOOL FC','LIVERPOOL','STEINSGATE',5);
+insert into clubs values('1005','CRYSTAL PALACE','NORWOOD','SELHIRST PARK',6);
+insert into clubs values('1006','BLACKBURN FC','BLACK FREURS','KENGSTON',7);
+insert into clubs values('1007','WELLINGTON FC','NEW HAMPSHIRE','REDMUND PARK',8);
+insert into clubs values('1008','GONZAGA UNITED','SPOKANE','CASTLE ARENA',9);
+insert into clubs values('1009','COMPTON UNITED','COMPTON','MADISON PARK',10);
+
+
+
+update clubs set position=1 where name="SOUTHHALL FC";
+update clubs set position=2 where name="DORTMUND FC";
+update clubs set position=3 where name="JUVENTUS";
+update clubs set position=4 where name="LA GALAXY";
+update clubs set position=5 where name="LIVERPOOL FC";
+update clubs set position=6 where name="CRYSTAL PALACE";
+update clubs set position=7 where name="BLACKBURN FC";
+update clubs set position=8 where name="WELLINGTON FC";
+update clubs set position=9 where name="GONZAGA UNITED";
+update clubs set position=10 where name="COMPTON UNITED";
+
+
+
+
+
+
+QUERIES USED:
+
+1.select * from league;
+2.select * from clubs;
+3.select * from stadium;
+4.select * from manager;
+5.select * from login;
+6.select * from league order by position;
+7.insert into login values('1002','admin','root');
+8.insert into league values(1,'SOUTHHALL FC',9,1,0,34,14,27);
+9.insert into stadium values('SOUTHHALL FC','TRAFALGAR PARK',68000,'LONDON');
+10.insert into manager values('1000','EDWARD','AMERICA','SOUTHHALL FC');
+11.insert into clubs values('1000','SOUTHHALL FC','LONDON','TRAFALGAR PARK',1);
+12.select * from manager where license_id="1001";
+13.select * from league where club_name="MANCHESTER";
+14.update league set position=1,won=9,lost=1,draw=0,goals_for=34,goals_against=14,points=27 where club_name="SOUTHHALL FC";
+15.update clubs set position=2 where name="DORTMUND FC";
+16.select * from clubs c,stadium s where c.name=s.club_name and c.club_id="+tf.getText();
+17.delete from manager where license_id="1001";
+18.update login set password='"+pw.getText()+"'where username='"+tf1.getText()+"'";
+
+
+PSUEDOCODE
+
+
+package football_league;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javafx.application.Platform.exit;
+import javax.swing.JOptionPane;
+
+
+public class loginup extends javax.swing.JFrame {
+        public String s2;
+        Connection con=null;
+        Statement s=null;
+        ResultSet rs=null;
+
+ public loginup() {
+        initComponents();
+        
+    }
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+            try {
+                con=DriverManager.getConnection("jdbc:mysql://localhost:3306/football_league","ajayhegde","root");
+                s=con.createStatement();
+               s.executeUpdate("update login set password='"+pw.getText()+"'where username='"+tf1.getText()+"'");
+               Admin a=new Admin();
+               this.setVisible(false);
+               a.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(loginup.class.getName()).log(Level.SEVERE, null, ex);
+                exit();
+            }
+             JOptionPane.showMessageDialog(null,"SUCCESSFUL","DONE!",JOptionPane.INFORMATION_MESSAGE);
+    }      
+
+public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(loginup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(loginup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(loginup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(loginup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new loginup().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPasswordField pw;
+    private javax.swing.JTextField tf1;        
